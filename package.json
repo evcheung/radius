@@ -3,9 +3,11 @@
   "version": "y",
   "description": "Radius design system kit",
   "main": "y",
-  "license": "MIT",
-  "private": true,
   "workspaces": [
-    "packages/*"
-  ]
+    "packages/react/*",
+    "packages/react-native*",
+    "packages/common/*"
+  ],
+  "license": "MIT",
+  "private": true
 }
