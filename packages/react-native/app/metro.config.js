@@ -5,6 +5,19 @@
  * @format
  */
 
+const path = require('path');
+
+// react-native >= 0.57
+
+const extraNodeModules = {
+  ds: path.join(process.cwd(), '/node_modules/@radius/react-native-ds/'),
+};
+console.log('🍡🌮🍣  extraNodeModules.ds', extraNodeModules.ds);
+
+const watchFolders = [
+  path.join(process.cwd(), '/node_modules/@radius/react-native-ds/'),
+];
+
 module.exports = {
   transformer: {
     getTransformOptions: async () => ({
@@ -14,4 +27,8 @@ module.exports = {
       },
     }),
   },
+  resolver: {
+    extraNodeModules,
+  },
+  watchFolders,
 };

@@ -24,7 +24,10 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {theme} from '@radius/react-native-ds';
+
 const App: () => React$Node = () => {
+  console.log(theme);
   return (
     <>
       <StatusBar barStyle="dark-content" />

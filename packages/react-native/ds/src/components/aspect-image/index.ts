@@ -1,1 +1,2 @@
-export { AspectImage } from './aspect-image';
+// export { AspectImage } from './aspect-image';
+export const phAI = () => {};

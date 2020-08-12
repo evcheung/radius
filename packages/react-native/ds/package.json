@@ -27,6 +27,15 @@
     "styled-components": ">=5",
     "styled-system": ">=5"
   },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./src/components"
+      ],
+      "pattern": "**/*.stories.js",
+      "outputFile": "./storybook/storyLoader.js"
+    }
+  },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"

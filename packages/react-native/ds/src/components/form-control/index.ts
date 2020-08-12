@@ -1,9 +1,11 @@
-import { Field, FieldSet } from './field';
-import { Hint, Error } from './messages';
+// import { Field, FieldSet } from './field';
+// import { Hint, Error } from './messages';
 
-export const FormControl = {
-  Field,
-  FieldSet,
-  Hint,
-  Error,
-};
+// export const FormControl = {
+//   Field,
+//   FieldSet,
+//   Hint,
+//   Error,
+// };
+
+export const phFC = () => {};

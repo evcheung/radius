@@ -10,13 +10,19 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@radius/react-native-ds": "^1.0.0",
+    "@radius/theme": "1.0.0",
     "react": "16.13.1",
-    "react-native": "0.63.2"
+    "react-native": "0.63.2",
+    "polished": "^3.6.5",
+    "styled-components": "^5.1.1",
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
+    "@storybook/react-native": "^5.3.19",
     "babel-jest": "^25.1.0",
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
@@ -25,5 +31,19 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "workspaces": {
+    "nohoist": [
+      "react-native",
+      "react-native/**",
+      "styled-components",
+      "styled-components/**",
+      "styled-system",
+      "styled-system/**",
+      "polished",
+      "polished/**",
+      "@storybook/react-native",
+      "@storybook/react-native/**"
+    ]
   }
 }

@@ -1,1 +1,2 @@
-export * from './text-area';
+// export * from './text-area';
+export const phTA = () => {};

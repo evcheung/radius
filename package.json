@@ -5,7 +5,7 @@
   "main": "y",
   "workspaces": [
     "packages/react/*",
-    "packages/react-native*",
+    "packages/react-native/*",
     "packages/common/*"
   ],
   "license": "MIT",
