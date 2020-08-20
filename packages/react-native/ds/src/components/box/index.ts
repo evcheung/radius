@@ -1,2 +1,1 @@
-// export * from './box';
-export const phBox = () => {};
+export * from './box';

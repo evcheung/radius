@@ -12,7 +12,6 @@ const path = require('path');
 const extraNodeModules = {
   ds: path.join(process.cwd(), '/node_modules/@radius/react-native-ds/'),
 };
-console.log('🍡🌮🍣  extraNodeModules.ds', extraNodeModules.ds);
 
 const watchFolders = [
   path.join(process.cwd(), '/node_modules/@radius/react-native-ds/'),

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { variant } from 'styled-system';
 import {
   TypographyFunctionsProps,
@@ -43,7 +43,7 @@ const headingVariant = variant({
   },
 });
 
-export const Heading = styled.h1<HeadingProps>`
+export const Heading = styled.Text<HeadingProps>`
   ${headingVariant}
   ${typographyFunctions}
 `;

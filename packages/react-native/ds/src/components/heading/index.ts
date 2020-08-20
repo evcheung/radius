@@ -1,2 +1,1 @@
-// export * from './heading';
-export const phHeading = () => {};
+export * from './heading';

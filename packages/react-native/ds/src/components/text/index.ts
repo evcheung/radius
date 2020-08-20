@@ -1,2 +1,1 @@
-// export * from './text';
-export const phText = () => {};
+export * from './text';

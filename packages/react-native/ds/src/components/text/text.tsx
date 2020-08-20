@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { variant } from 'styled-system';
 import {
   TypographyFunctionsProps,
@@ -41,11 +41,11 @@ const textVariants = variant({
   },
 });
 
-export const Text = styled.p<TextProps>`
+export const Textbox = styled.Text<TextProps>`
   ${textVariants}
   ${typographyFunctions}
 `;
 
-Text.defaultProps = {
+Textbox.defaultProps = {
   variant: 'body',
 };
