@@ -43,7 +43,9 @@
       "polished",
       "polished/**",
       "@storybook/react-native",
-      "@storybook/react-native/**"
+      "@storybook/react-native/**",
+      "@types/react-native",
+      "@types/react-native/**"
     ]
   }
 }
