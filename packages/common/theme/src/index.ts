@@ -6,6 +6,8 @@ export const fonts = {
   monospace: 'Menlo, monospace',
 };
 
+export const baseFontSize = 16;
+
 export const fontSizes = [
   '0.625rem',
   '0.75rem',

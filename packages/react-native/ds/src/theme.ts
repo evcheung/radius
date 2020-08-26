@@ -1,42 +1,42 @@
-import theme from '@radius/theme';
+import theme, * as baseTokens from '@radius/theme';
+import { getTransformedLineHeights } from './transformation-functions';
+import {
+  getTransformedFonts,
+  getTransformedFontSizes,
+} from './transformation-functions';
 
-const fontSizes = [
-  '10px',
-  '12px',
-  '14px',
-  '16px',
-  '20px',
-  '24px',
-  '28px',
-  '34px',
-  '46px',
-  '60px',
-];
-const lineHeights = {
-  solid: '16px',
-  title: '42px',
-  copy: '22px',
-};
+// export default pipe(
+//     getTransformedA,
+//     getTransformedB,
+//     getTransformedC,
+//     getTransformedD
+//   )(theme);
+
+// should we do an adaptater/transformation layer for every token? Interface to map A to B
+
+const baseFontSize = 16;
 
 const translatedTheme = {
   light: {
     ...theme.light,
-    fonts: {
-      ...theme.light.fonts,
-      body: 'Menlo',
-    },
-    fontSizes,
-    lineHeights,
+    fonts: getTransformedFonts(baseTokens.fonts),
+    fontSizes: getTransformedFontSizes(baseFontSize, baseTokens.fontSizes),
+    lineHeights: getTransformedLineHeights(
+      baseTokens.lineHeights,
+      getTransformedFontSizes(baseFontSize, baseTokens.fontSizes)
+    ),
   },
   dark: {
     ...theme.dark,
-    fonts: {
-      ...theme.dark.fonts,
-      body: 'Arial',
-    },
-    fontSizes,
-    lineHeights,
+    fonts: getTransformedFonts(baseTokens.fonts),
+    fontSizes: getTransformedFontSizes(baseFontSize, baseTokens.fontSizes),
+    lineHeights: getTransformedLineHeights(
+      baseTokens.lineHeights,
+      getTransformedFontSizes(baseFontSize, baseTokens.fontSizes)
+    ),
   },
+  //   test: {
+  //   },
 };
 
 export default translatedTheme;

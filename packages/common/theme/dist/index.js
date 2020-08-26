@@ -4,6 +4,7 @@ export var fonts = {
     heading: '"Roboto", sans-serif',
     monospace: 'Menlo, monospace',
 };
+export var baseFontSize = 16;
 export var fontSizes = [
     '0.625rem',
     '0.75rem',

@@ -3,6 +3,7 @@ export declare const fonts: {
     heading: string;
     monospace: string;
 };
+export declare const baseFontSize = 16;
 export declare const fontSizes: string[];
 export declare const fontWeights: {
     regular: number;

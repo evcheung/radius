@@ -9,10 +9,9 @@ export type TextProps = {
   variant: 'body' | 'caption' | 'hint' | 'label';
 } & TypographyFunctionsProps;
 
-const defaultextStyles = {
+const defaultTextStyles = {
   fontFamily: 'body',
   fontWeight: 'regular',
-  lineHeight: 'copy',
   color: 'text.primary',
   mt: 0,
   mb: 0,
@@ -21,21 +20,25 @@ const defaultextStyles = {
 const textVariants = variant({
   variants: {
     body: {
-      ...defaultextStyles,
+      ...defaultTextStyles,
       fontSize: 2,
+      lineHeight: 'copy.2',
     },
     caption: {
-      ...defaultextStyles,
+      ...defaultTextStyles,
       fontSize: 1,
+      lineHeight: 'copy.1',
     },
     hint: {
-      ...defaultextStyles,
+      ...defaultTextStyles,
       fontSize: 0,
+      lineHeight: 'copy.0',
     },
     label: {
-      ...defaultextStyles,
+      ...defaultTextStyles,
       fontFamily: 'heading',
       fontSize: 1,
+      lineHeight: 'copy.1',
       fontWeight: 'medium',
     },
   },
