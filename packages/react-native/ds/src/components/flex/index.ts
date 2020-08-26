@@ -1,2 +1,1 @@
-// export * from './flex';
-export const phFlex = () => {};
+export * from './flex';

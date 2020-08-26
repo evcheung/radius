@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {
   compose,
   variant,
@@ -31,7 +31,7 @@ const imageVariants = variant({
   },
 });
 
-export const Image = styled.img<ImageProps>(
+export const Image = styled.Image<ImageProps>(
   {
     maxWidth: '100%',
     height: 'auto',

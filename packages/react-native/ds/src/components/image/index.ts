@@ -1,2 +1,1 @@
-// export * from './image';
-export const phImage = () => {};
+export * from './image';
