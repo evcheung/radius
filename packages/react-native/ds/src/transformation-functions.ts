@@ -44,11 +44,9 @@ export const getTransformedLineHeights = (
 
   lineHeightKeys.forEach(key => {
     Object.assign(transformedLineHeights, {
-      [key]: fontSizes.map(fontSize => fontSize * baseLineHeights[key]),
+      [key]: fontSizes.map(fontSize => `${fontSize * baseLineHeights[key]}px`),
     });
   });
-
-  console.log('🍡🌮🍣  transformedLineHeights', transformedLineHeights);
 
   return transformedLineHeights;
 };

@@ -8,5 +8,9 @@ import userImg from '../../imgs/user.png';
 import heartsTriangles from '../../imgs/hearts_triangles.png';
 
 storiesOf('Image', module)
-  .add('Default', () => <Image source={sampleImg} maxWidth={600} />)
+  .add('Default', () => (
+    <Box>
+      <Image source={sampleImg} width="100%" />
+    </Box>
+  ))
   .add('Avatar', () => <Image source={userImg} variant="avatar" />);
