@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {
   SpaceProps,
   ColorProps,
@@ -16,6 +16,8 @@ export type FlexProps = SpaceProps &
   BorderProps &
   PositionProps;
 
-export const Flex = styled(Box)<FlexProps>({
-  display: 'flex',
-});
+export const Flex = styled(Box)<FlexProps>({});
+
+Flex.defaultProps = {
+  flexDirection: 'row',
+};

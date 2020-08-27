@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import styled, { StyledComponentProps } from 'styled-components';
 import { TypographyFunctionsProps } from '../typography-functions';
-import { Text } from '../text';
+import { Textbox } from '../text';
 import { Box } from '../box';
 
 type StyledLabelProps = {
@@ -13,7 +13,7 @@ type StyledLabelProps = {
   as?: 'label' | 'legend';
 } & TypographyFunctionsProps;
 
-const StyledLabel = styled(Text)<StyledLabelProps>`
+const StyledLabel = styled(Textbox)<StyledLabelProps>`
   display: flex;
   width: 100%;
   align-items: center;
