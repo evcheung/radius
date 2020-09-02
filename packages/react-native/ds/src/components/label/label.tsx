@@ -3,8 +3,6 @@ import styled from 'styled-components/native';
 import { StyledComponentProps } from 'styled-components';
 import { TypographyFunctionsProps } from '../typography-functions';
 import { Textbox } from '../text';
-import { Box } from '../box';
-import { Flex } from '../flex';
 
 type AdornmentProp = 'required' | string | JSX.Element;
 
