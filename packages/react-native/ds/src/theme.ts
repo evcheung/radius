@@ -5,15 +5,6 @@ import {
   getTransformedFontSizes,
 } from './transformation-functions';
 
-// export default pipe(
-//     getTransformedA,
-//     getTransformedB,
-//     getTransformedC,
-//     getTransformedD
-//   )(theme);
-
-// should we do an adaptater/transformation layer for every token? Interface to map A to B
-
 const baseFontSize = 16;
 
 const translatedTheme = {
@@ -35,8 +26,6 @@ const translatedTheme = {
       getTransformedFontSizes(baseFontSize, baseTokens.fontSizes)
     ),
   },
-  //   test: {
-  //   },
 };
 
 export default translatedTheme;
