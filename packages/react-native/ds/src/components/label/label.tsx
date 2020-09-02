@@ -1,35 +1,33 @@
 import React, { forwardRef } from 'react';
-import styled, { StyledComponentProps } from 'styled-components';
+import styled from 'styled-components/native';
+import { StyledComponentProps } from 'styled-components';
 import { TypographyFunctionsProps } from '../typography-functions';
 import { Textbox } from '../text';
 import { Box } from '../box';
+import { Flex } from '../flex';
+
+type AdornmentProp = 'required' | string | JSX.Element;
 
 type StyledLabelProps = {
   /** Apply the mandatory adornment */
   required?: boolean;
   /** A custom adornment to apply */
-  adornment?: 'required' | string | JSX.Element;
-  /** HTML element to render */
-  as?: 'label' | 'legend';
+  adornment?: AdornmentProp;
+  /** React Native element to render */
+  as?: any;
 } & TypographyFunctionsProps;
 
-const StyledLabel = styled(Textbox)<StyledLabelProps>`
-  display: flex;
-  width: 100%;
-  align-items: center;
-
-  ${props =>
-    props.required &&
-    `&:after {
-      content: "*";
-      color: ${props.theme.colors.brand.secondary};
-    }`}
+export const StyledLabel = styled(Textbox)<StyledLabelProps>`
+  /* display: flex; */
+  /* align-items: baseline; */
+  /* justify-content: center; */
+  /* width: 100%; */
 `;
 
-StyledLabel.defaultProps = {
-  pl: 0,
-  pr: 0,
-};
+// StyledLabel.defaultProps = {
+//   pl: 0,
+//   pr: 0,
+// };
 
 export type LabelProps = StyledComponentProps<
   'label',
@@ -38,7 +36,17 @@ export type LabelProps = StyledComponentProps<
   never
 >;
 
-export const Label = forwardRef<HTMLLabelElement, LabelProps>(
+const getAdornment = (adornment: AdornmentProp) => {
+  if (typeof adornment === 'string')
+    return (
+      <Textbox variant="label" color="text.secondary" pl={1}>
+        {` ${adornment}`}
+      </Textbox>
+    );
+  return adornment;
+};
+
+export const Label = forwardRef<JSX.Element, LabelProps>( ///////
   ({ children, as, ...props }, ref) => (
     <StyledLabel
       as={as}
@@ -48,21 +56,23 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
       {...props}
     >
       {children}
-      {props.adornment && (
-        <Box
-          display="inline-flex"
-          alignItems="center"
-          color="text.secondary"
-          ml={1}
-        >
-          {props.adornment}
-        </Box>
+      {props.adornment && getAdornment(props.adornment)}
+      {props.required && (
+        <Textbox variant="label" color="brand.secondary">
+          *
+        </Textbox>
       )}
     </StyledLabel>
   )
 );
+// do we need "as" anymore? Only Text and TextInput to worry about
+// No more label, legend, etc
+// Test with rest of Form components. May also remove StyledLabel altogether
+// Should this be wrapped in Box instead?
 
+// no pseudo classes
+// can't nest views inside text - alignment issues and not supported for Android
 Label.defaultProps = {
   required: false,
-  as: 'label',
+  // as: Textbox,
 };
