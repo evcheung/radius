@@ -3,10 +3,11 @@ import styled from 'styled-components/native';
 import { StyledComponentProps } from 'styled-components';
 import { TypographyFunctionsProps } from '../typography-functions';
 import { Textbox } from '../text';
+import { Box } from '../box';
 
 type AdornmentProp = 'required' | string | JSX.Element;
 
-type StyledLabelProps = {
+type CenterAlignedBoxProps = {
   /** Apply the mandatory adornment */
   required?: boolean;
   /** A custom adornment to apply */
@@ -15,62 +16,60 @@ type StyledLabelProps = {
   as?: any;
 } & TypographyFunctionsProps;
 
-export const StyledLabel = styled(Textbox)<StyledLabelProps>`
-  /* display: flex; */
-  /* align-items: baseline; */
-  /* justify-content: center; */
-  /* width: 100%; */
+export const CenterAlignedBox = styled(Box)<CenterAlignedBoxProps>`
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 `;
 
-// StyledLabel.defaultProps = {
-//   pl: 0,
-//   pr: 0,
-// };
+CenterAlignedBox.defaultProps = {
+  pl: 0,
+  pr: 0,
+};
 
 export type LabelProps = StyledComponentProps<
   'label',
   any,
-  StyledLabelProps,
+  CenterAlignedBoxProps,
   never
 >;
 
 const getAdornment = (adornment: AdornmentProp) => {
   if (typeof adornment === 'string')
     return (
-      <Textbox variant="label" color="text.secondary" pl={1}>
-        {` ${adornment}`}
+      <Textbox variant="label" color="text.secondary" ml={1}>
+        {adornment}
       </Textbox>
     );
-  return adornment;
+  return <Box ml={1}>{adornment}</Box>;
 };
 
 export const Label = forwardRef<JSX.Element, LabelProps>( ///////
   ({ children, as, ...props }, ref) => (
-    <StyledLabel
-      as={as}
-      variant="label"
-      ref={ref}
-      color="text.primary"
-      {...props}
-    >
-      {children}
+    // TODO: fix TS error
+    <CenterAlignedBox {...props} ref={ref}>
+      <Textbox variant="label" color="text.primary">
+        {children}
+      </Textbox>
       {props.adornment && getAdornment(props.adornment)}
       {props.required && (
-        <Textbox variant="label" color="brand.secondary">
+        <Textbox variant="label" color="brand.secondary" ml={1}>
           *
         </Textbox>
       )}
-    </StyledLabel>
+    </CenterAlignedBox>
   )
 );
 // do we need "as" anymore? Only Text and TextInput to worry about
 // No more label, legend, etc
-// Test with rest of Form components. May also remove StyledLabel altogether
-// Should this be wrapped in Box instead?
+// Test with rest of Form components
+
+// Changed StyledLabel to Box, need View properties for alignment purposes
 
 // no pseudo classes
-// can't nest views inside text - alignment issues and not supported for Android
+// can't nest views inside text - vertical alignment issues and not supported for Android
+// Refactored to render separate components for adornments/required, they need to be siblings
+
 Label.defaultProps = {
   required: false,
-  // as: Textbox,
 };
