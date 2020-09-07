@@ -12,8 +12,6 @@ type CenterAlignedBoxProps = {
   required?: boolean;
   /** A custom adornment to apply */
   adornment?: AdornmentProp;
-  /** React Native element to render */
-  as?: any;
 } & TypographyFunctionsProps;
 
 export const CenterAlignedBox = styled(Box)<CenterAlignedBoxProps>`
@@ -44,8 +42,8 @@ const getAdornment = (adornment: AdornmentProp) => {
   return <Box ml={1}>{adornment}</Box>;
 };
 
-export const Label = forwardRef<JSX.Element, LabelProps>( ///////
-  ({ children, as, ...props }, ref) => (
+export const Label = forwardRef<JSX.Element, LabelProps>(
+  ({ children, ...props }, ref) => (
     // TODO: fix TS error
     <CenterAlignedBox {...props} ref={ref}>
       <Textbox variant="label" color="text.primary">
