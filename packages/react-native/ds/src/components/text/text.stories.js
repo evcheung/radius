@@ -1,8 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { ThemeProvider } from 'styled-components/native';
 
-import { theme, Box, Textbox, Flex } from '../../../src';
+import { Box, Textbox, Flex } from '../../../src';
 
 export const Variant = props => (
   <Textbox

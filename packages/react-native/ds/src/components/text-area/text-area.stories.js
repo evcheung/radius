@@ -1,9 +1,9 @@
 import React from 'react';
-import { TextArea } from './text-area';
-import { Box } from '../box';
-import { Textbox } from '../text';
-import { storiesOf } from '@storybook/react-native';
 import { TextInput } from 'react-native';
+import { storiesOf } from '@storybook/react-native';
+
+import { Box, Textbox, TextArea } from '../../../src';
+
 storiesOf('Text Area', module)
   .add('Default', () => (
     <Box>

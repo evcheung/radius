@@ -5,25 +5,31 @@ import {
   getTransformedFontSizes,
 } from './transformation-functions';
 
-const baseFontSize = 16;
-
 const translatedTheme = {
   light: {
     ...theme.light,
+    baseFontSize: baseTokens.baseFontSize,
     fonts: getTransformedFonts(baseTokens.fonts),
-    fontSizes: getTransformedFontSizes(baseFontSize, baseTokens.fontSizes),
+    fontSizes: getTransformedFontSizes(
+      baseTokens.baseFontSize,
+      baseTokens.fontSizes
+    ),
     lineHeights: getTransformedLineHeights(
       baseTokens.lineHeights,
-      getTransformedFontSizes(baseFontSize, baseTokens.fontSizes)
+      getTransformedFontSizes(baseTokens.baseFontSize, baseTokens.fontSizes)
     ),
   },
   dark: {
     ...theme.dark,
+    baseFontSize: baseTokens.baseFontSize,
     fonts: getTransformedFonts(baseTokens.fonts),
-    fontSizes: getTransformedFontSizes(baseFontSize, baseTokens.fontSizes),
+    fontSizes: getTransformedFontSizes(
+      baseTokens.baseFontSize,
+      baseTokens.fontSizes
+    ),
     lineHeights: getTransformedLineHeights(
       baseTokens.lineHeights,
-      getTransformedFontSizes(baseFontSize, baseTokens.fontSizes)
+      getTransformedFontSizes(baseTokens.baseFontSize, baseTokens.fontSizes)
     ),
   },
 };
