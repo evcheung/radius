@@ -1,5 +1,7 @@
-import React, { forwardRef, useState } from 'react';
-import styled, { StyledComponentProps } from 'styled-components';
+import React, { forwardRef, useState, useContext } from 'react';
+import { TextInput } from 'react-native';
+import styled from 'styled-components/native';
+import { StyledComponentProps, ThemeContext } from 'styled-components';
 import {
   compose,
   space,
@@ -8,14 +10,15 @@ import {
   border,
   position,
   color,
+  typography,
 } from 'styled-system';
 import { Box } from '../box';
-import { Text } from '../text';
+import { Textbox, defaultTextStyles } from '../text';
 import { TypographyFunctionsProps } from '../typography-functions';
-import { focusRing } from '../shared-styles';
+import { focusRing, hiddenOffsetRing, invisibleRing } from '../shared-styles';
 
 type TextAreaProps = StyledComponentProps<
-  'textarea',
+  any, // TODO: Was changed from 'textinput', investigate proper typing for StyledComponentProps with React Native
   any,
   {
     placeholder?: string;
@@ -26,74 +29,41 @@ type TextAreaProps = StyledComponentProps<
   never
 >;
 
-const ContentArea = styled(Text)<
+const ContentArea = styled(TextInput)<
   {
     error?: Boolean;
+    focused?: Boolean;
   } & TypographyFunctionsProps
 >`
-  box-sizing: border-box;
-  display: block;
-  appearance: none;
-  -webkit-appearance: none;
-  resize: vertical;
+  ${(props: any) => (props.focused ? focusRing : null)}
+
   width: 100%;
   min-height: ${(props: any) => props.theme.sizes[3] + 14}px;
   padding: ${(props: any) => props.theme.space[2]}px;
+  border-color: ${(props: any) => {
+    if (props.error) return props.theme.colors.ui.error;
+    if (!props.editable) return props.theme.colors.ui.disabled;
+    if (props.readOnly) return props.theme.colors.ui.secondary;
+    else return props.theme.colors.ui.secondary;
+  }};
 
-  border-color: ${(props: any) =>
-    props.error
-      ? props.theme.colors.ui.error
-      : props.theme.colors.ui.secondary};
+  color: ${(props: any) => {
+    if (!props.editable) return props.theme.colors.text.disabled;
+    else return props.theme.colors.text.primary;
+  }};
 
-  &::placeholder {
-    color: ${props => props.theme.colors.text.secondary};
-    font-size: ${props => props.theme.sizes[1]}px;
-    font-weight: normal;
-  }
+  opacity: ${(props: any) => {
+    if (!props.editable) return 1 /* correct opacity on iOS */;
+    else return props.opacity || 1;
+  }};
 
-  &:hover {
-    border-color: ${props =>
-      props.error
-        ? props.theme.colors.ui.error
-        : props.theme.colors.ui.primary};
-  }
+  background-color: ${(props: any) => {
+    if (!props.editable) return props.theme.colors.ui.disabled;
+    if (props.readOnly) return props.theme.colors.ui.tertiary;
+    else return props.backgroundColor;
+  }};
 
-  &:focus {
-    ${focusRing}
-
-    &::placeholder {
-      color: transparent;
-    }
-  }
-
-  &:-moz-read-only {
-    background-color: ${props => props.theme.colors.ui.tertiary};
-    border-color: ${props => props.theme.colors.ui.secondary};
-  }
-
-  &:read-only {
-    background-color: ${props => props.theme.colors.ui.tertiary};
-    border-color: ${props => props.theme.colors.ui.secondary};
-
-    &::placeholder {
-      color: ${props => props.theme.colors.text.secondary};
-    }
-  }
-
-  &:disabled {
-    -webkit-text-fill-color: currentColor; /* set text fill to current color for safari */
-    opacity: 1; /* correct opacity on iOS */
-    color: ${props => props.theme.colors.text.disabled};
-    background-color: ${props => props.theme.colors.ui.disabled};
-    border-color: ${props => props.theme.colors.ui.disabled};
-
-    &::placeholder {
-      color: ${props => props.theme.colors.text.disabled};
-      opacity: 1;
-    }
-  }
-
-  ${compose(space, layout, flexbox, border, position, color)}
+  ${compose(space, typography, layout, flexbox, border, position, color)}
 `;
 
 ContentArea.defaultProps = {
@@ -101,9 +71,13 @@ ContentArea.defaultProps = {
   borderStyle: 'solid',
   borderRadius: 0,
   bg: 'ui.quaternary',
+  // matching Textbox body styles
+  ...defaultTextStyles,
+  fontSize: 2,
+  lineHeight: 'copy.2',
 };
 
-export const StyledText = styled(Text)<
+export const StyledText = styled(TextInput)<
   {
     error?: Boolean;
   } & TypographyFunctionsProps
@@ -114,12 +88,41 @@ export const StyledText = styled(Text)<
       : props.theme.colors.text.secondary};
 `;
 
-export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+const getBackgroundColor = (editable: boolean, readOnly: boolean) => {
+  if (!editable) return 'ui.disabled';
+  if (readOnly) return 'ui.tertiary';
+  else return 'ui.quaternary';
+};
+// TODO: Review below. Is this the best way to hook into theme values outside of properties from 'compose'?
+const getPlaceholderTextColor = (
+  theme: any,
+  editable: boolean,
+  readOnly: boolean,
+  focused: boolean
+) => {
+  if (!editable) return theme.colors.text.disabled;
+  if (readOnly) return theme.colors.text.secondary;
+  if (focused) return 'transparent';
+  else return theme.colors.text.secondary;
+};
+
+// TODO: review solution below
+// No equivalent outline property for RN. Using invisible ring to prevent shifting input when focused
+const FocusRing = styled(Box)<{ focused: Boolean }>`
+  ${(props: any) => (props.focused ? focusRing : invisibleRing)}
+`;
+
+const HiddenOffsetRing = styled(Box)<{ focused: Boolean }>`
+  ${(props: any) => (props.focused ? hiddenOffsetRing : invisibleRing)}
+`;
+
+export const TextArea = forwardRef<JSX.Element, TextAreaProps>(
   (
     {
       maxCharacters,
       placeholder,
-      disabled,
+      editable = true,
+      readOnly = false,
       error,
       mb,
       mt,
@@ -131,37 +134,62 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     },
     ref
   ) => {
+    const theme = useContext(ThemeContext);
+
     const [characterCount, setCharacterCount] = useState(
       props.value ? props.value.length : 0
     );
+    const [value, setChangedText] = React.useState();
+    const [focused, setFocused] = React.useState(false);
+
+    const setTextAndCharacterCount = (text: any) => {
+      setCharacterCount(text.length);
+      setChangedText(text);
+    };
+
     const isError =
       error || (maxCharacters && characterCount > maxCharacters) ? true : false;
 
     return (
       <Box mx={mx} my={my} mb={mb} mt={mt} ml={ml} mr={mr}>
-        <ContentArea
-          as="textarea"
-          variant="body"
-          mb={0}
-          ref={ref}
-          placeholder={placeholder}
-          disabled={disabled}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            setCharacterCount(e.target.value.length)
-          }
-          error={isError}
-          aria-invalid={isError ? 'true' : 'false'}
-          {...props}
-        />
+        <FocusRing focused={focused}>
+          <HiddenOffsetRing focused={focused}>
+            <ContentArea
+              multiline
+              mb={0}
+              // TODO: fix TS error
+              ref={ref}
+              placeholder={placeholder}
+              placeholderTextColor={getPlaceholderTextColor(
+                theme,
+                editable,
+                readOnly,
+                focused
+              )}
+              editable={editable}
+              onChangeText={(text: any) =>
+                readOnly ? {} : setTextAndCharacterCount(text)
+              }
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              focused={focused}
+              value={value}
+              error={isError}
+              aria-invalid={isError ? 'true' : 'false'}
+              bg={getBackgroundColor(editable, readOnly)}
+              {...props}
+            />
+          </HiddenOffsetRing>
+        </FocusRing>
         {maxCharacters ? (
-          <Text
+          <Textbox
             variant="hint"
             width="100%"
             color={isError ? 'text.error' : 'text.secondary'}
             textAlign="right"
           >
             {`${characterCount}/${maxCharacters}`}
-          </Text>
+          </Textbox>
         ) : null}
       </Box>
     );

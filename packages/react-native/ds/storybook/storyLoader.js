@@ -10,6 +10,7 @@ function loadStories() {
   require('../src/components/text/text.stories');
   require('../src/components/image/image.stories');
   require('../src/components/label/label.stories');
+  require('../src/components/text-area/text-area.stories');
 }
 
 const stories = [
@@ -19,6 +20,7 @@ const stories = [
   '../src/components/text/text.stories',
   '../src/components/image/image.stories',
   '../src/components/label/label.stories',
+  '../src/components/text-area/text-area.stories',
 ];
 
 module.exports = {

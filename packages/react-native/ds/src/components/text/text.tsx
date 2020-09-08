@@ -9,7 +9,7 @@ export type TextProps = {
   variant: 'body' | 'caption' | 'hint' | 'label';
 } & TypographyFunctionsProps;
 
-const defaultTextStyles = {
+export const defaultTextStyles = {
   fontFamily: 'body',
   fontWeight: 'regular',
   color: 'text.primary',

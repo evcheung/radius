@@ -1,6 +1,16 @@
 import { css } from 'styled-components';
 
 export const focusRing = css`
-  outline: 1px solid ${props => props.theme.colors.brand.accent};
-  outline-offset: 1px;
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.brand.accent};
+`;
+
+export const hiddenOffsetRing = css`
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.bg.primary};
+`;
+
+export const invisibleRing = css`
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.bg.primary};
 `;
