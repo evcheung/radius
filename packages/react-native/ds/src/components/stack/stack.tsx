@@ -35,31 +35,14 @@ export type StackProps = {
 export type SpacedContainerProps = {
   axis?: 'horizontal' | 'vertical';
   space?: number | number[];
+  isLastChild: boolean;
 };
 
 export const StyledStack = styled(Flex)<StackProps>`
   ${stack}
-  > * {
-    border-width: 4;
-    border-color: 'red';
-  }
-  > * {
-    ${props =>
-      css({
-        [props.axis === 'horizontal'
-          ? 'marginRight'
-          : 'marginBottom']: props.space,
-      })(props)}
-  }
-
-  > *:last-child {
-    ${props =>
-      css({
-        [props.axis === 'horizontal' ? 'marginRight' : 'marginBottom']: 0,
-      })(props)}
-  }
 `;
 
+// TODO: Review solution below as substitute for "select all children" combinator and last child selector (unsupported in RN)
 export const SpacedContainer = styled(Box)<SpacedContainerProps>`
   ${props =>
     css({
@@ -67,12 +50,22 @@ export const SpacedContainer = styled(Box)<SpacedContainerProps>`
         ? 'marginRight'
         : 'marginBottom']: props.space,
     })(props)}
+
+  ${props =>
+    props.isLastChild &&
+    css({
+      [props.axis === 'horizontal' ? 'marginRight' : 'marginBottom']: 0,
+    })(props)}
 `;
 
 export const Stack = ({ children, ...props }: any) => (
   <StyledStack {...props}>
-    {children.map((child: any) => (
-      <SpacedContainer axis={props.axis} space={props.space}>
+    {children.map((child: any, i: number) => (
+      <SpacedContainer
+        axis={props.axis}
+        space={props.space}
+        isLastChild={children.length - 1 === i}
+      >
         {child}
       </SpacedContainer>
     ))}
