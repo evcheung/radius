@@ -1,56 +1,34 @@
-import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
-import { Box, Text } from '../';
-import { Stack } from './stack';
+import React from 'react';
+import { storiesOf } from '@storybook/react-native';
 
-<Meta title="Components/Stack" component={Stack} />
+import { Box, Stack } from '../../../src';
 
-# Stack
-
-An extension of the `Flex` component, that controls spacing between its children. For more context, see [Margin considered harmful](https://mxstbr.com/thoughts/margin).
-
-#### Horizontal
-
-<Preview>
-  <Story name="horizontal">
-    <Stack bg="secondary">
+storiesOf('Stack', module)
+  .add('Horizontal', () => (
+    <Stack bg="bg.secondary">
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
     </Stack>
-  </Story>
-</Preview>
-
-#### Vertical
-
-<Preview>
-  <Story name="vertical">
+  ))
+  .add('Vertical', () => (
     <Stack bg="bg.secondary" axis="vertical">
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
     </Stack>
-  </Story>
-</Preview>
-
-#### Control Spacing
-
-<Preview>
-  <Story name="spacing">
+  ))
+  .add('Control Spacing', () => (
     <Stack bg="bg.secondary" space={[4, 5, 6]}>
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
       <Box bg="ui.primary" width={3} height={3} />
     </Stack>
-  </Story>
-</Preview>
-
-#### Control Alignment
-
-<Preview>
-  <Story name="alignment">
+  ))
+  .add('Control Alignment', () => (
     <Stack axis="vertical">
       <Stack bg="bg.secondary" alignment="start">
         <Box bg="ui.primary" width={2} height={2} />
@@ -71,13 +49,8 @@ An extension of the `Flex` component, that controls spacing between its children
         <Box bg="ui.primary" width={2} height={2} />
       </Stack>
     </Stack>
-  </Story>
-</Preview>
-
-#### Control Distribution
-
-<Preview>
-  <Story name="distribution">
+  ))
+  .add('Control Distribution', () => (
     <Stack axis="vertical">
       <Stack bg="bg.secondary" distribution="start" height={3}>
         <Box bg="ui.primary" width={2} height={2} />
@@ -98,9 +71,4 @@ An extension of the `Flex` component, that controls spacing between its children
         <Box bg="ui.primary" width={2} height={2} />
       </Stack>
     </Stack>
-  </Story>
-</Preview>
-
-## Component Props
-
-<Props of={Stack} />
+  ));

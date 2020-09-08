@@ -1,2 +1,1 @@
-// export * from './stack';
-export const phStack = () => {};
+export * from './stack';

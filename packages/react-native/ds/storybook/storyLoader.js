@@ -11,6 +11,7 @@ function loadStories() {
   require('../src/components/image/image.stories');
   require('../src/components/label/label.stories');
   require('../src/components/text-area/text-area.stories');
+  require('../src/components/stack/stack.stories');
 }
 
 const stories = [
@@ -21,6 +22,7 @@ const stories = [
   '../src/components/image/image.stories',
   '../src/components/label/label.stories',
   '../src/components/text-area/text-area.stories',
+  '../src/components/stack/stack.stories',
 ];
 
 module.exports = {

@@ -24,12 +24,10 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-// import {theme} from '@radius/react-native-ds';
 import StorybookUI from '@radius/react-native-ds/storybook';
-
+// TODO: fix ScrollView for StorybookUI
 const App: () => React$Node = () => {
   if (__DEV__) {
-    // console.log(theme.light.fonts.body);
     return <StorybookUI />;
   } else {
     return (
