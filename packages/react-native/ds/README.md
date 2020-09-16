@@ -1,6 +1,8 @@
 # TSDX React User Guide
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+Because we are transforming the root theme into a compatible version for each technology starter, we will want this compiled at build time rather than run time.
+
+To achieve this, `yarn start` should be run when developing the design system, which starts the project in watch mode with TSDX and re-builds it with changes.
 
 > This TSDX setup is meant for developing React components (not apps!) that can be published to NPM. If you’re looking to build an app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
 
