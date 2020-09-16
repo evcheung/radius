@@ -58,15 +58,6 @@ export const Label = forwardRef<JSX.Element, LabelProps>(
     </CenterAlignedBox>
   )
 );
-// do we need "as" anymore? Only Text and TextInput to worry about
-// No more label, legend, etc
-// Test with rest of Form components
-
-// Changed StyledLabel to Box, need View properties for alignment purposes
-
-// no pseudo classes
-// can't nest views inside text - vertical alignment issues and not supported for Android
-// Refactored to render separate components for adornments/required, they need to be siblings
 
 Label.defaultProps = {
   required: false,

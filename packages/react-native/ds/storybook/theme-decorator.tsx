@@ -1,23 +1,21 @@
 import React from 'react';
-import {
-  Box,
-  RadiusThemeProvider,
-  TranslatedThemeContextProvider,
-} from '../src';
+import { ThemeProvider } from 'styled-components';
+
+import { theme, Box } from '../src';
 
 const ThemeDecorator = (storyFn: any) => (
-  <TranslatedThemeContextProvider>
-    <RadiusThemeProvider theme={'light'}>
+  <>
+    <ThemeProvider theme={theme.light}>
       <Box bg="bg.primary" px={4} py={5} width="100%" mb={4}>
         {storyFn({ id: id => 'light-' + id })}
       </Box>
-    </RadiusThemeProvider>
-    <RadiusThemeProvider theme={'dark'}>
+    </ThemeProvider>
+    <ThemeProvider theme={theme.dark}>
       <Box bg="bg.primary" px={4} py={5} width="100%">
         {storyFn({ id: id => 'dark-' + id })}
       </Box>
-    </RadiusThemeProvider>
-  </TranslatedThemeContextProvider>
+    </ThemeProvider>
+  </>
 );
 
 export default ThemeDecorator;

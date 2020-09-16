@@ -1,2 +1,1 @@
-// export * from './checkbox';
-export const phCB = () => {};
+export * from './checkbox';
